@@ -5,8 +5,6 @@ import javax.swing.SwingUtilities;
 
 import model.BattleField;
 
-import controler.Controller;
-
 public class ClientViewTest {
 
 	/**
@@ -24,9 +22,10 @@ public class ClientViewTest {
 			@Override
 			public void run() {
 				ClientView clientView =  new ClientView();
+				clientView.setBattleField(battleField);
 				clientView.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 				clientView.setVisible(true);
-				
+				clientView.displayShips();
 			}
 		});
 		//clientView.displayShips();

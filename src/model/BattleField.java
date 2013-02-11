@@ -46,7 +46,7 @@ public class BattleField {
 		for (int i=startX;i<=stopX;i++){
 			for (int j = startY; j <=stopY ; j++) {
 				if (isValid(i,j)){
-					//System.out.println("i="+i+"j="+j);
+					
 					if (isPointBusy(i,j)) return false;
 				}
 			}

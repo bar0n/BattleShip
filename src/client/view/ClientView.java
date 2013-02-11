@@ -22,61 +22,40 @@ public class ClientView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	public BattleField getBattleField() {
+		return battleField;
+	}
+
+	public void setBattleField(BattleField battleField) {
+		this.battleField = battleField;
+	}
+
 	private BattleField battleField;
 	private FieldPanel leftField;
 	private JPanel rigthField;
-	
-	public void displayShips(){
-		
+
+	public void displayShips() {
+
 		for (Component cell : leftField.getComponents()) {
-			if (cell instanceof Cell){
-				if (battleField.isPointBusy(cell.getX(), cell.getY())) {
-					((Cell) cell).setText("X");((Cell) cell).setBackground(Color.BLUE);
+			if (cell instanceof Cell) {
+				 Cell cellThis = (Cell)cell;
+				if (battleField.isPointBusy(cellThis.getXx(),cellThis.getYy())){
+					cellThis.setText("X");
+					cellThis.setBackground(Color.BLUE);
 				}
 			}
-				
+
 		}
 	}
+
 	public ClientView() {
-		
-	//	this.battleField = battleField;
-		
+
 		setLayout(new BorderLayout());
 		JSplitPane center = new JSplitPane();
 
 		leftField = new FieldPanel();
-		rigthField = new JPanel();
-		
-		rigthField.setLayout(new GridLayout(11, 11));
+		rigthField = new FieldPanel();
 
-		for (int i = 0; i < 11; i++) {
-			for (int j = 0; j < 11; j++) {
-				if (i == 0 && j == 0) {
-					rigthField.add(new JLabel());
-				} else if (i == 0) {
-
-					Character ch = (char) ('À' + j - 1);
-					if (j==10) ch = 'Ê';
-					JButton lab = new JButton(ch.toString());
-					lab.setEnabled(false);
-					rigthField.add(lab);
-
-				} else if (j == 0) {
-					Integer ii = i;
-					JButton lab = new JButton(ii.toString());
-					lab.setEnabled(false);
-					rigthField.add(lab);
-				} else {
-					Cell cell = new Cell(j - 1, i - 1);
-					Dimension size = cell.getSize();					
-					size.setSize(size.getHeight(), size.getHeight());
-					cell.setSize(size);
-					rigthField.add(cell);
-				}						
-			}
-		}
-		
-		leftField.init();
 		center.setLeftComponent(leftField);
 		center.setRightComponent(rigthField);
 
@@ -85,17 +64,22 @@ public class ClientView extends JFrame {
 		center.setOneTouchExpandable(true);
 		setResizable(false);
 
-		
 		setLocationRelativeTo(null);
-		repaint();
 		pack();
+
 	}
 
 	public static class FieldPanel extends JPanel {
 
 		private static final long serialVersionUID = -2774385827669413884L;
 
-		public void init() {
+		public FieldPanel() {
+
+			init();
+
+		}
+
+		private void init() {
 			setLayout(new GridLayout(11, 11));
 
 			for (int i = 0; i < 11; i++) {
@@ -105,7 +89,8 @@ public class ClientView extends JFrame {
 					} else if (i == 0) {
 
 						Character ch = (char) ('À' + j - 1);
-						if (j==10) ch = 'Ê';
+						if (j == 10)
+							ch = 'Ê';
 						JButton lab = new JButton(ch.toString());
 						lab.setEnabled(false);
 						add(lab);
@@ -117,64 +102,63 @@ public class ClientView extends JFrame {
 						add(lab);
 					} else {
 						Cell cell = new Cell(j - 1, i - 1);
-						Dimension size = cell.getSize();
-						
+						Dimension size = cell.getSize();						
 						size.setSize(size.getHeight(), size.getHeight());
 						cell.setSize(size);
 						add(cell);
-					}						
+					}
 				}
 			}
 
 		}
 
-		/*@Override
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g); // paints background
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.black);
-			g2.drawRect(10, 10, getWidth() - 10, getHeight() - 10);
+			// g2.drawRect(10, 10, getWidth() - 10, getHeight() - 10);
 
-		}*/
+		}
 
 	}
 
 	public static class Cell extends JButton {
 
 		private static final long serialVersionUID = 1L;
-		private int x;
-		private int y;
+		private int xx;
+		private int yy;
+
+		public int getXx() {
+			return xx;
+		}
+
+		public int getYy() {
+			return yy;
+		}
+
+		public void setXx(int xx) {
+			this.xx = xx;
+		}
+
+		public void setYy(int yy) {
+			this.yy = yy;
+		}
 
 		public Cell(int i, int j) {
 			super();
-			this.x = i;
-			this.y = j;
+			this.xx = i;
+			this.yy = j;
 			setPreferredSize(new Dimension(25, 25));
 			setSize(25, 25);
 			addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("x=" + x + " y=" + y);
+					System.out.println("x=" + xx + " y=" + yy);
 
 				}
 			});
-		}
-
-		public int getX() {
-			return x;
-		}
-
-		public int getY() {
-			return y;
-		}
-
-		public void setX(int x) {
-			this.x = x;
-		}
-
-		public void setY(int y) {
-			this.y = y;
 		}
 
 	}
