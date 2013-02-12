@@ -18,22 +18,16 @@ import javax.swing.JSplitPane;
 
 import model.BattleField;
 
+// Client GUI 
 public class ClientView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	public BattleField getBattleField() {
-		return battleField;
-	}
-
-	public void setBattleField(BattleField battleField) {
-		this.battleField = battleField;
-	}
-
+	
 	private BattleField battleField;
 	private FieldPanel leftField;
 	private JPanel rigthField;
 
+	// show ships from model 
 	public void displayShips() {
 
 		for (Component cell : leftField.getComponents()) {
@@ -69,6 +63,7 @@ public class ClientView extends JFrame {
 
 	}
 
+	// nested class. Panel showing cells
 	public static class FieldPanel extends JPanel {
 
 		private static final long serialVersionUID = -2774385827669413884L;
@@ -123,6 +118,7 @@ public class ClientView extends JFrame {
 
 	}
 
+	
 	public static class Cell extends JButton {
 
 		private static final long serialVersionUID = 1L;
@@ -161,5 +157,13 @@ public class ClientView extends JFrame {
 			});
 		}
 
+	}
+	
+	public BattleField getBattleField() {
+		return battleField;
+	}
+
+	public void setBattleField(BattleField battleField) {
+		this.battleField = battleField;
 	}
 }
